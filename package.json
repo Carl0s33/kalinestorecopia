@@ -1,13 +1,12 @@
 {
   "name": "kaline-store",
   "type": "module",
-  "homepage": "https://carl0s33.github.io/Kaline-STORE/",
-  "repository": "https://github.com/Carl0s33/Kaline-STORE.git",
+  "homepage": "https://github.com/Carl0s33/kalinestorecopia",
+  "repository": "https://github.com/Carl0s33/kalinestorecopia.git",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist -b gh-pages",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
@@ -49,7 +48,7 @@
     "autoprefixer": "^10.4.16",
     "eslint": "^8.57.1",
     "eslint-config-react-app": "^7.0.1",
-    "gh-pages": "^6.3.0",
+
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3",
     "terser": "^5.39.0",
