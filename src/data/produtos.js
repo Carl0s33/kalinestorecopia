@@ -38,7 +38,7 @@ const produtos = [
     "name": "Saia Longa Godê em Viscose",
     "price": "R$ 219,90",
     "category": "Saias",
-    "image": "https://images.tcdn.com.br/img/img_prod/413300/saia_gode_holly_sb28836_terracota_119017_1_19105192fa87b0f2a840c0e285f66fad.jpg",
+    "image": "https://58532.cdn.simplo7.net/static/58532/sku/feminino-camisa-feminina-social-manga-longa-cinza-ibiza-p-1681236525761.jpg",
     "description": "Saia longa com corte godê em viscose leve, cintura alta e zíper invisível nas costas. Caimento fluido para looks elegantes do dia à noite.",
     "rating": 4.8,
     "reviews": 145,
@@ -274,6 +274,35 @@ const produtos = [
     "inStock": true,
     "createdAt": "2025-01-30T13:25:00Z",
     "updatedAt": "2025-05-27T10:40:00Z"
+  },
+  {
+    "id": "11",
+    "name": "Blusa de Seda com Laço",
+    "price": "R$ 189,90",
+    "category": "Blusas",
+    "image": "https://58532.cdn.simplo7.net/static/58532/sku/feminino-camisa-feminina-social-manga-longa-cinza-ibiza-p-1681236525761.jpg",
+    "description": "Blusa de seda com gola laço, mangas longas e caimento elegante. Perfeita para ocasiões formais e para o trabalho.",
+    "rating": 4.7,
+    "reviews": 98,
+    "sizes": [
+      "P",
+      "M",
+      "G"
+    ],
+    "colors": [
+      "Branco",
+      "Preto",
+      "Rosa"
+    ],
+    "details": [
+      "Tecido: 100% Seda",
+      "Gola com laço",
+      "Mangas longas com punho",
+      "Modelagem soltinha"
+    ],
+    "inStock": true,
+    "createdAt": "2025-07-07T19:54:23Z",
+    "updatedAt": "2025-07-07T19:54:23Z"
   }
 ];
 
