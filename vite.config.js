@@ -301,6 +301,7 @@ export default defineConfig({
     },
   },
   customLogger: logger,
+  base: '/Kaline-STORE/',
   plugins: [react(), updateProductsPlugin(), addTransformIndexHtml],
 	server: {
 		cors: true,
