@@ -273,57 +273,57 @@
         max-width: 1200px;
         margin-left: auto;
         margin-right: auto;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-top: 32px;
+        padding-bottom: 32px;
       }
       .div-centralizada {
         text-align: center;
       }
       .div-espacada {
-        margin-bottom: 2rem;
-        margin-top: 2rem;
+        margin-bottom: 32px;
+        margin-top: 32px;
       }
       .div-sombra {
         box-shadow: 0 4px 24px 0 rgb(0 0 0 / 0.08);
       }
       .div-arredondada {
-        border-radius: 0.75rem;
+        border-radius: 12px;
       }
       .div-borda {
         border: 1px solid #e5e7eb;
       }
       .div-destaque {
         background: #f9fafb;
-        border-radius: 0.75rem;
+        border-radius: 12px;
         box-shadow: 0 2px 8px 0 rgb(0 0 0 / 0.04);
-        padding: 1.5rem;
+        padding: 24px;
       }
       .div-erro {
         background: #fee2e2;
         color: #b91c1c;
-        border-radius: 0.5rem;
-        padding: 1rem;
+        border-radius: 8px;
+        padding: 16px;
       }
       .div-sucesso {
         background: #dcfce7;
         color: #166534;
-        border-radius: 0.5rem;
-        padding: 1rem;
+        border-radius: 8px;
+        padding: 16px;
       }
       .div-alerta {
         background: #fef9c3;
         color: #92400e;
-        border-radius: 0.5rem;
-        padding: 1rem;
+        border-radius: 8px;
+        padding: 16px;
       }
       .titulo-principal {
-        font-size: 2.25rem;
+        font-size: 36px;
         font-weight: 700;
         color: hsl(var(--brand-text-kaline));
         text-align: left;
-        margin-bottom: 1rem;
+        margin-bottom: 16px;
       }
       .titulo-secundario {
         font-size: 1.5rem;

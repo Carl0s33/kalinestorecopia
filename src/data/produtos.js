@@ -1,7 +1,3 @@
-// LOG DE CURADORIA (2025-06-03 14:14):
-// - O catálogo de produtos foi atualizado para incluir produtos de marcas famosas.
-// - O produto com id '3' (Saia Longa Godê Amaro) continua sendo o destaque principal.
-// Esta decisão reflete a curadoria atual do vendedor.
 
 // Função utilitária para converter URLs para base64 (usado apenas durante a inicialização)
 async function urlToBase64(url) {

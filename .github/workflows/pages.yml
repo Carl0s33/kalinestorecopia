@@ -32,6 +32,14 @@ jobs:
           node -v
           npm -v
       
+      - name: Cache Vite
+        uses: actions/cache@v4
+        with:
+          path: .vite
+          key: ${{ runner.os }}-vite-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-vite-
+
       - name: Install dependencies
         run: |
           npm ci --no-audit
@@ -45,18 +53,20 @@ jobs:
           echo "Running build script..."
           npm run build
           echo "Build completed. Directory structure:"
-          ls -la build/
+          ls -la dist/
           echo "Adding .nojekyll file..."
-          touch build/.nojekyll
+          touch dist/.nojekyll
       
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      
+        with:
+          static_site_generator: vite
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'build'
-  
+          path: 'dist/'
+
   deploy:
     environment:
       name: github-pages
