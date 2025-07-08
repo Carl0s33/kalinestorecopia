@@ -344,7 +344,7 @@ const produtos = [
     "name": "Minissaia Jeans com Botões",
     "price": "R$ 99,90",
     "category": "Saias",
-    "image": "/img/produtos/saiamidi.webp",
+    "image": "/img/produtos/minissaiajeans.jpg",
     "description": "Minissaia jeans de cintura alta com botões frontais e lavagem clara. Essencial para um look jovem e despojado.",
     "rating": 4.5,
     "reviews": 85,
