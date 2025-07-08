@@ -412,7 +412,7 @@ const produtos = [
     "name": "Vestido Chemise de Linho",
     "price": "R$ 289,90",
     "category": "Vestidos",
-    "image": "https://images.unsplash.com/photo-1622618343493-dba742a731d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+    "image": "/img/produtos/vestidochemise.webp",
     "description": "Vestido estilo chemise em linho, com botões frontais e faixa para amarração na cintura. Elegante e versátil.",
     "rating": 4.7,
     "reviews": 130,
