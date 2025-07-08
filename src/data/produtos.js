@@ -377,7 +377,7 @@ const produtos = [
     "name": "Vestido Longo Floral com Fenda",
     "price": "R$ 349,90",
     "category": "Vestidos",
-    "image": "/img/produtos/vestido longo.webp",
+    "image": "public/img/produtos/opvl092804136_1.jpg",
     "description": "Vestido longo com estampa floral, alças finas, decote V e fenda frontal. Perfeito para eventos ao ar livre.",
     "rating": 4.9,
     "reviews": 150,
