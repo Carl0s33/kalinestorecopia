@@ -158,24 +158,42 @@ const CartaoProduto = React.memo(({ product }) => {
   // Renderizar estrelas de classificação
   const renderStars = useCallback((rating) => {
     const fullStars = Math.floor(rating);
-    const halfStar = rating % 1 !== 0;
+    const hasHalfStar = rating % 1 >= 0.3 && rating % 1 <= 0.9;
     
     return (
-      <div className="flex items-center" aria-label={`Avaliação: ${rating} de 5 estrelas`}>
+      <div className="flex items-center gap-0.5" aria-label={`Avaliação: ${rating.toFixed(1)} de 5 estrelas`}>
         {Array.from({ length: 5 }).map((_, i) => {
           if (i < fullStars) {
-            return <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" aria-hidden="true" />;
-          } else if (i === fullStars && halfStar) {
-            return <Star key={i} className="h-4 w-4 fill-yellow-400/50 text-yellow-400/50" aria-hidden="true" />;
+            return (
+              <Star 
+                key={i} 
+                className="h-4 w-4 fill-yellow-400 text-yellow-400 transition-transform hover:scale-125" 
+                aria-hidden="true"
+              />
+            );
+          } else if (i === fullStars && hasHalfStar) {
+            return (
+              <div key={i} className="relative h-4 w-4">
+                <Star className="absolute h-4 w-4 text-gray-300 dark:text-gray-600" />
+                <div className="absolute left-0 top-0 h-full overflow-hidden" style={{ width: '50%' }}>
+                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                </div>
+              </div>
+            );
           } else {
-            return <Star key={i} className="h-4 w-4 text-gray-300 dark:text-gray-600" aria-hidden="true" />;
+            return (
+              <Star 
+                key={i} 
+                className="h-4 w-4 text-gray-300 dark:text-gray-600 transition-colors hover:text-yellow-400" 
+                aria-hidden="true"
+              />
+            );
           }
         })}
-        {reviewCount && (
-          <span className="ml-1 text-xs text-gray-500 dark:text-gray-400">
-            ({reviewCount})
-          </span>
-        )}
+        <span className="ml-1 text-xs font-medium text-gray-600 dark:text-gray-400">
+          {rating.toFixed(1)}
+          {reviewCount > 0 && ` (${reviewCount})`}
+        </span>
       </div>
     );
   }, [reviewCount]);

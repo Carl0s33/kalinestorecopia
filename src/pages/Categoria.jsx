@@ -46,18 +46,32 @@ a
 
   const categoryTitle = categoryName ? decodeURIComponent(categoryName) : 'Categoria';
 
+  // Visual especial para rota/categoria promocoes
+  const isPromocoes = categoryTitle.toLowerCase() === 'promoções' || categoryTitle.toLowerCase() === 'promocoes';
+
   return (
     // container principal
     // o min-h-screen é so pra nao ficar feio
     <div className="div-container min-h-screen">
-      {/* animaçao de entrada do titulo */}
-      {/* so pra parecer que tem algo acontecendo */}
+      {/* animação de entrada do titulo */}
       <motion.div
         initial={{ opacity: 0, y: -20 }} // comeca invisivel
         animate={{ opacity: 1, y: 0 }} // termina visivel
         transition={{ duration: 0.5 }} // duracao da animaçao
       >
         {/* titulo da categoria */}
+        {isPromocoes ? (
+          <div className="flex items-center gap-3 justify-center mb-8 mt-4">
+            <span className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-pink-500 text-white text-3xl shadow-lg animate-bounce">
+              <svg xmlns='http://www.w3.org/2000/svg' className='h-7 w-7' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' /></svg>
+            </span>
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-pink-600 drop-shadow">Promoções Exclusivas</h1>
+            <span className="ml-2 text-base bg-pink-100 text-pink-700 px-4 py-2 rounded-full font-bold animate-pulse border-2 border-pink-400 shadow">OFERTA</span>
+          </div>
+        ) : (
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-brand-primary-kaline dark:text-brand-primary-kaline mb-8 mt-4 drop-shadow">{categoryTitle}</h1>
+        )}
+
         {/* se nao tiver nome, mostra 'Categoria' e foda-se */}
         <h1 className="titulo-principal">
           Categoria: <span className="text-brand-primary-kaline">{categoryTitle}</span>

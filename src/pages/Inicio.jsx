@@ -37,31 +37,48 @@ const HomePage = () => {
   // mas o trabalho pede 3 componentes entao toma
 
   const promocoes = [
-    { id: 1, titulo: 'OFERTA IMPERDÍVEL!', descricao: '50% OFF EM TUDO*', imagem: 'https://via.placeholder.com/1200x400?text=PROMOÇÃO+1', corFundo: 'bg-red-500' },
-    { id: 2, titulo: 'FRETE GRÁTIS!', descricao: 'EM COMPRAS ACIMA DE R$ 199,99', imagem: 'https://via.placeholder.com/1200x400?text=PROMOÇÃO+2', corFundo: 'bg-blue-500' },
-    { id: 3, titulo: 'LANÇAMENTO!', descricao: 'CONFIRA NOSSAS NOVIDADES', imagem: 'https://via.placeholder.com/1200x400?text=PROMOÇÃO+3', corFundo: 'bg-green-500' },
+    { id: 1, imagem: '/img/banners/banner1.jpg', link: '#' },
+    { id: 3, imagem: '/img/banners/banner3.jpg', link: '/produtos/1001' }
   ];
 
-  // estados do carrossel que nunca funciona direito
-  // mas finge que ta tudo bem
+  // Estados do carrossel
   const [slideAtual, setSlideAtual] = useState(0);
-  const totalSlides = promocoes.length; // 3 slides de mentira
+  const totalSlides = promocoes.length;
+  const [isLoading, setIsLoading] = useState(true);
 
-  // função que faz o carrossel andar
-  // as vezes trava, mas faz parte do charme
-  const proximoSlide = () => {
+  // Funções de navegação do carrossel
+  const proximoSlide = useCallback(() => {
     setSlideAtual((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
-  };
+  }, [totalSlides]);
 
-  const slideAnterior = () => {
+  const slideAnterior = useCallback(() => {
     setSlideAtual((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
-  };
+  }, [totalSlides]);
 
-  // Muda o slide automaticamente a cada 5 segundos
+  // Efeito para troca automática de slides
   useEffect(() => {
     const timer = setInterval(proximoSlide, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [proximoSlide]);
+
+  // Efeito para pré-carregar as imagens
+  useEffect(() => {
+    const loadImages = async () => {
+      const imagePromises = promocoes.map((promo) => {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.src = promo.imagem;
+          img.onload = () => resolve();
+          img.onerror = () => resolve();
+        });
+      });
+
+      await Promise.all(imagePromises);
+      setIsLoading(false);
+    };
+
+    loadImages();
+  }, [promocoes]);
   // Estados locais
   const [displayedProdutos, setDisplayedProdutos] = useState([]);
   const [columns, setColumns] = useState('4');
@@ -74,19 +91,9 @@ const HomePage = () => {
   const { produtos: produtosFromContext, isLoading: isLoadingProdutos } = useProdutos();
   const { notificar } = useNotificacao();
   
-  // Logs de depuração detalhados
-  console.log('=== INÍCIO DA RENDERIZAÇÃO ===');
-  console.log('isLoadingProdutos:', isLoadingProdutos);
-  console.log('Tipo de produtosFromContext:', typeof produtosFromContext);
-  console.log('É array?', Array.isArray(produtosFromContext));
-  console.log('Quantidade de produtos:', Array.isArray(produtosFromContext) ? produtosFromContext.length : 'não é array');
-  console.log('Primeiros 2 produtos:', Array.isArray(produtosFromContext) ? produtosFromContext.slice(0, 2) : 'não é array');
-  
   // Efeito para monitorar mudanças nos produtos
   useEffect(() => {
-    console.log('=== MUDANÇA NOS PRODUTOS ===');
-    console.log('isLoadingProdutos:', isLoadingProdutos);
-    console.log('Total de produtos:', Array.isArray(produtosFromContext) ? produtosFromContext.length : 0);
+    // Atualiza a lista de produtos quando os dados mudam
   }, [produtosFromContext, isLoadingProdutos]);
   
   // Atualiza a classe da grade quando as colunas mudam
@@ -108,88 +115,53 @@ const HomePage = () => {
   }, [columns]);
 
   // pega todos os tamanhos e cores dos produtos
-  // pq sim, o trabalho pede filtro
   const [allSizes, allColors] = useMemo(() => {
     const sizes = new Set();
     const colors = new Set();
     
-    // loop que ninguem entende mas funciona
-    // se reclamar eu choro
     produtosFromContext.forEach(produto => {
       if (produto.sizes) produto.sizes.forEach(size => sizes.add(size));
       if (produto.colors) produto.colors.forEach(color => colors.add(color));
     });
     
-    // retorna tudo bonitinho pro filtro que ninguem vai usar
     return [
       Array.from(sizes).sort(),
       Array.from(colors).sort()
     ];
   }, [produtosFromContext]); // atualiza quando os produtos carregam (ou não)
   
-  // filtro que nunca funciona direito na primeira vez
-  // mas depois de 3 tentativas vai
   useEffect(() => {
-    console.log('=== TENTANDO FILTRAR ESSA BAGUNÇA ===');
-    console.log('ta carregando? claro que ta:', isLoadingProdutos);
-    console.log('produtos do contexto (ou nao):', produtosFromContext);
-    console.log('tamanhos selecionados (se tiver):', selectedSizes);
-    console.log('cores selecionadas (se der sorte):', selectedColors);
-    
-    // se ainda ta carregando, nem tenta
-    // vai dar erro mesmo
-    if (isLoadingProdutos) {
-      console.log('ta carregando ainda, volta depois');
+    document.documentElement.classList.remove('protanopia-filter', 'deuteranopia-filter', 'tritanopsia-filter', 'achromatopsia-filter');
+    if (accessibilityFilter !== 'none') {
+      document.documentElement.classList.add(`${accessibilityFilter}-filter`);
+    }
+  }, [accessibilityFilter]);
+
+  // Filtra os produtos quando os filtros mudam
+  useEffect(() => {
+    if (isLoadingProdutos || !Array.isArray(produtosFromContext)) {
+      setDisplayedProdutos([]);
       return;
     }
-    
-    // se nao for array, deu merda
-    // mas quem liga, o importante é tentar
-    if (!Array.isArray(produtosFromContext)) {
-      console.error('nao é array nao, o que vc fez?', produtosFromContext);
-      setDisplayedProdutos([]); // lista vazia pra nao quebrar tudo
-      return;
-    }
-    
-    console.log('tentando filtrar essa bagunça...');
-    const filteredProdutos = produtosFromContext.filter(produto => {
-      // se o produto for uma bosta, ignora
-      if (!produto || typeof produto !== 'object') {
-        console.warn('tem um lixo aqui ó:', produto);
-        return false;
-      }
+
+    const filtered = produtosFromContext.filter(produto => {
+      if (!produto || typeof produto !== 'object') return false;
       
-      // filtro por tamanho
-      // se nao tiver tamanho selecionado, passa tudo
-      // pq sim, preguiça de tratar isso direito
-      const sizeMatch = selectedSizes.length === 0 || 
-        (produto.sizes && selectedSizes.some(size => produto.sizes.includes(size)));
+      const tamanhoMatch = selectedSizes.length === 0 || 
+        (Array.isArray(produto.sizes) && 
+         produto.sizes.some(size => selectedSizes.includes(size)));
       
-      // filtro por cor
-      // mesma lógica preguiçosa de cima
-      const colorMatch = selectedColors.length === 0 || 
-        (produto.colors && selectedColors.some(color => produto.colors.includes(color)));
+      const corMatch = selectedColors.length === 0 ||
+        (produto.colors && produto.colors.some(color => 
+          selectedColors.includes(color.toLowerCase())
+        ));
       
-      // se passar nos dois filtros (ou se ninguem tiver selecionado nada)
-      const matches = sizeMatch && colorMatch;
-      console.log(`produto ${produto.id} - ${produto.name || 'sem nome'}:`, { 
-        sizeMatch, 
-        colorMatch, 
-        matches,
-        // adicionando mais logs inuteis pra parecer que fiz algo util
-        'hora': new Date().toISOString(),
-        'sorte': Math.random() > 0.5 ? 'deu bom' : 'vai dar ruim'
-      });
-      
-      return matches; // se der match, coloca na lista
+      return tamanhoMatch && corMatch;
     });
-    
-    console.log('filtrei e so sobrou isso:', filteredProdutos);
-    setDisplayedProdutos(filteredProdutos); // joga na tela e reza pra funcionar
-    console.log('atualizei a lista com', filteredProdutos.length, 'coisas');
-    console.log('agora vai... ou não');
+
+    setDisplayedProdutos(filtered);
   }, [produtosFromContext, selectedSizes, selectedColors, isLoadingProdutos]);
-  
+
   // opções de colunas que ninguem vai mudar
   // mas o trabalho pedia entao toma
   const columnOptions = useMemo(() => [
@@ -258,61 +230,76 @@ const HomePage = () => {
     <div className={`div-espacada ${accessibilityFilter !== 'none' ? `${accessibilityFilter}-filter` : ''}`}>
 
   
-      {/* 'relative' está em inglês pois segue a convenção dos utilitários do tailwind. */}
-      <div className="relative mb-12 overflow-hidden rounded-xl shadow-2xl">
-        {/* 'flex' segue a nomenclatura padrão do tailwind para utilidades de layout. */}
-        <div 
-          className="flex transition-transform duration-500 ease-in-out"
-          style={{ transform: `translateX(-${slideAtual * 100}%)` }}
-        >
-          {promocoes.map((promo) => (
-            <div 
-              key={promo.id}
-              className={`w-full flex-shrink-0 h-64 md:h-96 ${promo.corFundo} flex items-center justify-center text-white p-8`}
-              style={{
-                backgroundImage: `url(${promo.imagem})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
+      {/* Carrossel de banners */}
+      <div className="relative mb-8 mt-4 w-full overflow-hidden rounded-2xl shadow-xl">
+        {isLoading ? (
+          <div className="flex h-64 w-full items-center justify-center bg-gray-100 md:h-96">
+            <div className="h-12 w-12 animate-spin rounded-full border-4 border-t-brand-primary-kaline"></div>
+          </div>
+        ) : (
+          <>
+            <div
+              className="flex h-64 w-full transition-transform duration-500 ease-in-out md:h-96"
+              style={{ transform: `translateX(-${slideAtual * 100}%)` }}
             >
-              <div className="text-center bg-black bg-opacity-50 p-6 rounded-lg">
-                <h2 className="text-3xl md:text-5xl font-bold mb-2">{promo.titulo}</h2>
-                <p className="text-xl md:text-2xl">{promo.descricao}</p>
-                <button className="mt-4 bg-white text-black hover:bg-gray-200 px-6 py-2 rounded-md font-medium">
-                  APROVEITAR OFERTA
-                </button>
+              {promocoes.map((promo) => (
+                <Link 
+                  key={promo.id} 
+                  to={promo.link}
+                  className="block h-full w-full flex-shrink-0"
+                >
+                  <div className="h-full w-full">
+                    <img
+                      src={promo.imagem}
+                      alt={`Banner ${promo.id}`}
+                      className="h-full w-full object-cover"
+                      draggable="false"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextElementSibling?.classList.remove('hidden');
+                      }}
+                    />
+                    <div className="hidden h-full w-full items-center justify-center bg-gray-100">
+                      <span className="text-gray-400">Imagem não disponível</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* Botões de navegação */}
+            <button
+              onClick={slideAnterior}
+              className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/50 p-2 shadow-lg backdrop-blur-sm transition-all hover:bg-white/75"
+              aria-label="Slide anterior"
+            >
+              <ArrowLeft className="h-6 w-6" />
+            </button>
+            <button
+              onClick={proximoSlide}
+              className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/50 p-2 shadow-lg backdrop-blur-sm transition-all hover:bg-white/75"
+              aria-label="Próximo slide"
+            >
+              <ArrowRight className="h-6 w-6" />
+            </button>
+
+            {/* Indicadores de slide */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
+              <div className="flex space-x-2">
+                {promocoes.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setSlideAtual(index)}
+                    className={`h-2 w-2 rounded-full transition-all ${
+                      index === slideAtual ? 'w-8 bg-white' : 'w-2 bg-white/50'
+                    }`}
+                    aria-label={`Ir para o slide ${index + 1}`}
+                  />
+                ))}
               </div>
             </div>
-          ))}
-        </div>
-        
-        {/* Botões de navegação - porque o usuário NUNCA vai descobrir que pode clicar nas bolinhas */}
-        <button 
-          onClick={slideAnterior}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 shadow-lg"
-          aria-label="Slide anterior"
-        >
-          <ArrowLeft className="w-6 h-6" />
-        </button>
-        <button 
-          onClick={proximoSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 shadow-lg"
-          aria-label="Próximo slide"
-        >
-          <ArrowRight className="w-6 h-6" />
-        </button>
-        
-        {/* Indicadores de slide - aquelas bolinhas que ninguém usa */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-          {promocoes.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setSlideAtual(index)}
-              className={`w-3 h-3 rounded-full ${index === slideAtual ? 'bg-white' : 'bg-white bg-opacity-50'}`}
-              aria-label={`Ir para o slide ${index + 1}`}
-            />
-          ))}
-        </div>
+          </>
+        )}
       </div>
      
       <section aria-labelledby="produtos-heading" className="mb-8">
