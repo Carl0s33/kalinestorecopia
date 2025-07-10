@@ -460,9 +460,9 @@ const produtos = [
   {
     "id": "19",
     "name": "Saint Laurent Opyum Pump",
-    "price": "R$ 7.990,00",
+    "price": "R$ 1.899,00",
     "category": "Sapatos de Luxo",
-    "image": "/img/produtos/saint-laurent-opyum-pump.jpg",
+    "image": "/img/produtos/sapato2.avif",
     "description": "Scarpin de luxo Saint Laurent Opyum Pump em couro preto com salto em formato do logo YSL. Um ícone de sofisticação e ousadia.",
     "rating": 4.9,
     "reviews": 32,
@@ -476,9 +476,9 @@ const produtos = [
   {
     "id": "20",
     "name": "Christian Louboutin Kate 100mm",
-    "price": "R$ 8.490,00",
+    "price": "R$ 3.199,00",
     "category": "Sapatos de Luxo",
-    "image": "/img/produtos/louboutin-kate-100mm.jpg",
+    "image": "/img/produtos/sapato1.1.jpg",
     "description": "O clássico scarpin Christian Louboutin Kate 100mm em couro envernizado nude com o icônico solado vermelho. Elegância e poder em cada passo.",
     "rating": 5.0,
     "reviews": 28,
@@ -488,6 +488,55 @@ const produtos = [
     "inStock": true,
     "createdAt": "2025-07-10T11:06:33Z",
     "updatedAt": "2025-07-10T11:06:33Z"
+  }
+  ,
+  {
+    "id": "21",
+    "name": "Vestido Longo Vinho",
+    "price": "R$ 299,90",
+    "category": "Vestidos",
+    "image": "/img/produtos/vestido-longo-vinho.jpg",
+    "description": "Vestido longo em tecido fluido, cor vinho, com alças finas e fenda lateral. Elegância para festas e eventos.",
+    "rating": 4.8,
+    "reviews": 61,
+    "sizes": ["P", "M", "G", "GG"],
+    "colors": ["Vinho"],
+    "details": ["Comprimento longo", "Fenda lateral", "Forro interno", "Alças reguláveis"],
+    "inStock": true,
+    "createdAt": "2025-07-10T11:27:30Z",
+    "updatedAt": "2025-07-10T11:27:30Z"
+  },
+  {
+    "id": "22",
+    "name": "Calça Jeans Skinny Feminina",
+    "price": "R$ 179,90",
+    "category": "Calças",
+    "image": "/img/produtos/calca-jeans-skinny.jpg",
+    "description": "Calça jeans skinny feminina, azul escuro, modelagem ajustada e elastano para maior conforto.",
+    "rating": 4.7,
+    "reviews": 87,
+    "sizes": ["36", "38", "40", "42", "44"],
+    "colors": ["Azul Escuro"],
+    "details": ["Modelagem skinny", "Com elastano", "Cintura média", "Acabamento pespontado"],
+    "inStock": true,
+    "createdAt": "2025-07-10T11:27:30Z",
+    "updatedAt": "2025-07-10T11:27:30Z"
+  },
+  {
+    "id": "23",
+    "name": "Relógio Feminino Dourado",
+    "price": "R$ 499,90",
+    "category": "Acessórios",
+    "image": "/img/produtos/relogio-feminino-dourado.jpg",
+    "description": "Relógio feminino com pulseira de aço dourado, mostrador minimalista e resistente à água. Sofisticação para o dia a dia.",
+    "rating": 4.9,
+    "reviews": 134,
+    "sizes": ["Único"],
+    "colors": ["Dourado"],
+    "details": ["Pulseira de aço inox", "Resistente à água", "Mostrador analógico", "Fecho ajustável"],
+    "inStock": true,
+    "createdAt": "2025-07-10T11:27:30Z",
+    "updatedAt": "2025-07-10T11:27:30Z"
   }
 ];
 
