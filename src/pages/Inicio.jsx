@@ -36,11 +36,35 @@ const HomePage = () => {
   // mais um carrossel inutil que ninguem pediu
   // mas o trabalho pede 3 componentes entao toma
 
+  // Banners de promoção com links para os produtos em destaque
   const promocoes = [
-    { id: 1, imagem: '/img/banners/banner1.jpg', imagemMobile: '/img/banners/banner1-mobile.jpg', link: '#' },
-    { id: 2, imagem: '/img/banners/banner2.jpg', imagemMobile: '/img/banners/banner2-mobile.jpg', link: '#' },
-    { id: 3, imagem: '/img/banners/banner3.jpg', imagemMobile: '/img/banners/banner3-mobile.jpg', link: '#' }
+    { 
+      id: 1, 
+      imagem: '/img/banners/banner1.jpg', 
+      link: '/category/promocoes?produto=2' // Relógio Feminino Vintage Dourado (ID: 2)
+    },
+    { 
+      id: 2, 
+      imagem: '/img/banners/banner3.jpg', 
+      link: '/category/promocoes?produto=1' // Vestido Midi Pink com Drapeado (ID: 1)
+    },
+    { 
+      id: 3, 
+      imagem: '/img/banners/banner2.jpg', 
+      link: '/category/promocoes?produto=3' // Colar Duplo de Pérolas com Pingente (ID: 3)
+    }
   ];
+  
+  // Debug: Log para verificar se as imagens estão sendo carregadas
+  useEffect(() => {
+    console.log('Banners configurados:', promocoes);
+    promocoes.forEach(promo => {
+      const img = new Image();
+      img.onload = () => console.log(`Imagem carregada: ${promo.imagem}`);
+      img.onerror = () => console.error(`Erro ao carregar: ${promo.imagem}`);
+      img.src = promo.imagem;
+    });
+  }, []);
 
   // Estados do carrossel
   const [slideAtual, setSlideAtual] = useState(0);
@@ -94,7 +118,38 @@ const HomePage = () => {
   
   // Efeito para monitorar mudanças nos produtos
   useEffect(() => {
-    // Atualiza a lista de produtos quando os dados mudam
+    console.log('=== INÍCIO DO MONITORAMENTO DE PRODUTOS ===');
+    console.log('Estado de carregamento:', isLoadingProdutos);
+    console.log('Produtos recebidos do contexto:', produtosFromContext);
+    
+    if (isLoadingProdutos) {
+      console.log('Aguardando carregamento dos produtos...');
+      return;
+    }
+    
+    if (!Array.isArray(produtosFromContext)) {
+      console.error('ERRO: produtosFromContext não é um array:', produtosFromContext);
+      setDisplayedProdutos([]);
+      return;
+    }
+    
+    console.log(`Total de produtos recebidos: ${produtosFromContext.length}`);
+    
+    if (produtosFromContext.length > 0) {
+      console.log('Primeiros 3 produtos:', produtosFromContext.slice(0, 3).map(p => ({
+        id: p.id,
+        name: p.name,
+        category: p.category,
+        hasImage: !!p.image
+      })));
+      
+      // Atualiza os produtos exibidos
+      setDisplayedProdutos(produtosFromContext);
+      console.log('Produtos definidos para exibição:', produtosFromContext.length);
+    } else {
+      console.warn('AVISO: Nenhum produto disponível para exibição');
+      setDisplayedProdutos([]);
+    }
   }, [produtosFromContext, isLoadingProdutos]);
   
   // Atualiza a classe da grade quando as colunas mudam
@@ -117,19 +172,42 @@ const HomePage = () => {
 
   // pega todos os tamanhos e cores dos produtos
   const [allSizes, allColors] = useMemo(() => {
+    console.log('=== INICIALIZANDO TAMANHOS E CORES ===');
+    console.log('Total de produtos para processar:', Array.isArray(produtosFromContext) ? produtosFromContext.length : 'não é array');
+    
     const sizes = new Set();
     const colors = new Set();
     
-    produtosFromContext.forEach(produto => {
-      if (produto.sizes) produto.sizes.forEach(size => sizes.add(size));
-      if (produto.colors) produto.colors.forEach(color => colors.add(color));
-    });
+    if (Array.isArray(produtosFromContext)) {
+      produtosFromContext.forEach((produto, index) => {
+        try {
+          // Processa tamanhos
+          if (Array.isArray(produto.sizes) && produto.sizes.length > 0) {
+            produto.sizes.forEach(size => {
+              if (size) sizes.add(String(size).trim());
+            });
+          }
+          
+          // Processa cores
+          if (Array.isArray(produto.colors) && produto.colors.length > 0) {
+            produto.colors.forEach(color => {
+              if (color) colors.add(String(color).toLowerCase().trim());
+            });
+          }
+        } catch (error) {
+          console.error(`Erro ao processar produto no índice ${index}:`, error, produto);
+        }
+      });
+    }
     
-    return [
-      Array.from(sizes).sort(),
-      Array.from(colors).sort()
-    ];
-  }, [produtosFromContext]); // atualiza quando os produtos carregam (ou não)
+    const sortedSizes = Array.from(sizes).sort();
+    const sortedColors = Array.from(colors).sort();
+    
+    console.log('Tamanhos encontrados:', sortedSizes);
+    console.log('Cores encontradas:', sortedColors);
+    
+    return [sortedSizes, sortedColors];
+  }, [produtosFromContext]); // atualiza quando os produtos carregam
   
   useEffect(() => {
     document.documentElement.classList.remove('protanopia-filter', 'deuteranopia-filter', 'tritanopia-filter', 'achromatopsia-filter');
@@ -140,26 +218,83 @@ const HomePage = () => {
 
   // Filtra os produtos quando os filtros mudam
   useEffect(() => {
-    if (isLoadingProdutos || !Array.isArray(produtosFromContext)) {
+    console.log('=== INÍCIO DA FILTRAGEM DE PRODUTOS ===');
+    console.log('Estado de carregamento:', isLoadingProdutos);
+    console.log('Total de produtos recebidos:', Array.isArray(produtosFromContext) ? produtosFromContext.length : 'não é array');
+    console.log('Tamanhos selecionados:', selectedSizes);
+    console.log('Cores selecionadas:', selectedColors);
+    
+    if (isLoadingProdutos) {
+      console.log('Aguardando carregamento dos produtos...');
+      return;
+    }
+    
+    if (!Array.isArray(produtosFromContext)) {
+      console.error('ERRO: produtosFromContext não é um array:', produtosFromContext);
       setDisplayedProdutos([]);
       return;
     }
-
+    
+    // Se não há produtos, limpa a exibição
+    if (produtosFromContext.length === 0) {
+      console.log('Nenhum produto disponível para filtragem');
+      setDisplayedProdutos([]);
+      return;
+    }
+    
+    // Se não há filtros ativos, exibe todos os produtos
+    if (selectedSizes.length === 0 && selectedColors.length === 0) {
+      console.log('Nenhum filtro ativo - exibindo todos os produtos');
+      setDisplayedProdutos(produtosFromContext);
+      return;
+    }
+    
+    console.log('Aplicando filtros...');
+    
     const filtered = produtosFromContext.filter(produto => {
-      if (!produto || typeof produto !== 'object') return false;
+      if (!produto || typeof produto !== 'object') {
+        console.warn('Produto inválido encontrado durante a filtragem:', produto);
+        return false;
+      }
       
+      // Verifica se o produto tem tamanhos e se algum dos tamanhos selecionados está presente
       const tamanhoMatch = selectedSizes.length === 0 || 
-        (Array.isArray(produto.sizes) && 
-         produto.sizes.some(size => selectedSizes.includes(size)));
+        (Array.isArray(produto.sizes) && produto.sizes.length > 0 &&
+         produto.sizes.some(size => 
+           selectedSizes.some(selectedSize => 
+             String(size).toLowerCase() === String(selectedSize).toLowerCase()
+           )
+         ));
       
+      // Verifica se o produto tem cores e se alguma das cores selecionadas está presente
       const corMatch = selectedColors.length === 0 ||
-        (produto.colors && produto.colors.some(color => 
-          selectedColors.includes(color.toLowerCase())
-        ));
+        (Array.isArray(produto.colors) && produto.colors.length > 0 &&
+         produto.colors.some(color => 
+           selectedColors.some(selectedColor => 
+             String(color).toLowerCase() === String(selectedColor).toLowerCase()
+           )
+         ));
       
       return tamanhoMatch && corMatch;
     });
-
+    
+    console.log('=== RESUMO DA FILTRAGEM ===');
+    console.log(`Total de produtos antes da filtragem: ${produtosFromContext.length}`);
+    console.log(`Total de produtos após filtragem: ${filtered.length}`);
+    
+    if (filtered.length === 0) {
+      console.log('Nenhum produto atende aos critérios de filtro atuais');
+    } else {
+      console.log('Amostra dos produtos filtrados (primeiros 3):', 
+        filtered.slice(0, 3).map(p => ({
+          id: p.id,
+          name: p.name,
+          sizes: p.sizes,
+          colors: p.colors
+        }))
+      );
+    }
+    
     setDisplayedProdutos(filtered);
   }, [produtosFromContext, selectedSizes, selectedColors, isLoadingProdutos]);
 
@@ -232,9 +367,9 @@ const HomePage = () => {
 
   
       {/* Carrossel de banners */}
-      <div className="relative mb-8 mt-4 w-full overflow-hidden rounded-2xl shadow-xl">
+      <div className="relative mb-8 mt-4 w-full overflow-hidden rounded-2xl shadow-xl bg-gray-900">
         {isLoading ? (
-          <div className="flex h-64 w-full items-center justify-center bg-gray-100 md:h-96">
+          <div className="flex h-64 w-full items-center justify-center bg-gray-100 md:h-96 rounded-2xl">
             <div className="h-12 w-12 animate-spin rounded-full border-4 border-t-brand-primary-kaline"></div>
           </div>
         ) : (
@@ -249,22 +384,34 @@ const HomePage = () => {
                   to={promo.link}
                   className="block h-full w-full flex-shrink-0"
                 >
-                  <div className="h-full w-full">
-                    <picture>
-  <source media="(max-width: 600px)" srcSet={promo.imagemMobile ? promo.imagemMobile : promo.imagem} />
-  <img
-    src={promo.imagem}
-    alt={`Banner ${promo.id}`}
-    className="h-full w-full object-contain object-center bg-black"
-    draggable="false"
-    onError={(e) => {
-      e.target.style.display = 'none';
-      e.target.nextElementSibling?.classList.remove('hidden');
-    }}
-  />
-</picture>
-                    <div className="hidden h-full w-full items-center justify-center bg-gray-100">
-                      <span className="text-gray-400">Imagem não disponível</span>
+                  <div className="h-full w-full relative">
+                    <div className="h-full w-full flex items-center justify-center p-2">
+                      <img
+                        src={promo.imagem}
+                        alt={`Banner ${promo.id}`}
+                        className="h-full w-auto max-w-full object-contain rounded-lg"
+                        style={{
+                          maxHeight: '100%',
+                          maxWidth: '100%',
+                          objectFit: 'contain',
+                          borderRadius: '0.5rem',
+                          backgroundColor: 'transparent'
+                        }}
+                        draggable="false"
+                        onError={(e) => {
+                          console.error('Erro ao carregar banner:', promo.imagem);
+                          const img = e.target;
+                          const fallback = img.parentElement.nextElementSibling;
+                          img.style.display = 'none';
+                          if (fallback) {
+                            fallback.classList.remove('hidden');
+                          }
+                        }}
+                        onLoad={() => console.log('Imagem carregada com sucesso:', promo.imagem)}
+                      />
+                    </div>
+                    <div className="hidden absolute inset-0 flex items-center justify-center bg-gray-900 rounded-2xl">
+                      <span className="text-white text-lg font-medium">Banner {promo.id}</span>
                     </div>
                   </div>
                 </Link>

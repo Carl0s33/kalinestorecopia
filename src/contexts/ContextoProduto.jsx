@@ -50,49 +50,83 @@ const formatNumberToPrice = (value) => {
 
 // Função para processar os produtos
 const processarProdutos = (produtos) => {
-  console.log('Iniciando processamento de produtos...');
+  console.log('=== INÍCIO DO PROCESSAMENTO DE PRODUTOS ===');
   console.log('Tipo de dados recebido:', typeof produtos);
   console.log('É array?', Array.isArray(produtos));
-  console.log('Quantidade de itens:', Array.isArray(produtos) ? produtos.length : 'não é array');
+  console.log('Quantidade de itens recebidos:', Array.isArray(produtos) ? produtos.length : 'não é array');
   
   try {
     if (!Array.isArray(produtos)) {
-      console.error('Erro: produtos não é um array', produtos);
+      console.error('ERRO: produtos não é um array', produtos);
       return [];
     }
     
-    console.log('Primeiros 2 itens para análise:', JSON.stringify(produtos.slice(0, 2), null, 2));
+    if (produtos.length === 0) {
+      console.warn('AVISO: Array de produtos vazio recebido para processamento');
+      return [];
+    }
+    
+    console.log('Primeiros 3 itens para análise:', produtos.slice(0, 3).map(p => ({
+      id: p?.id || 'sem-id',
+      name: p?.name || 'sem-nome',
+      category: p?.category || 'sem-categoria',
+      hasImage: !!p?.image,
+      price: p?.price || 'sem-preço'
+    })));
     
     const processados = produtos.map((product, index) => {
       try {
-        console.log(`Processando produto ${index}:`, product?.name || 'Sem nome');
-        
         if (!product) {
-          console.warn(`Produto vazio no índice ${index}`);
+          console.warn(`AVISO: Produto vazio no índice ${index}`);
           return null;
+        }
+        
+        if (!product.id) {
+          console.warn(`AVISO: Produto sem ID no índice ${index}:`, product.name || 'Sem nome');
+          product.id = `prod-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
         }
         
         const processedProduct = {
           ...product,
-          id: product.id || `prod-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          id: product.id,
           price: formatPriceToNumber(product.price),
           discountPrice: product.discountPrice ? formatPriceToNumber(product.discountPrice) : null,
+          // Garante que as propriedades obrigatórias existam
+          name: product.name || 'Produto sem nome',
+          category: product.category || 'Sem categoria',
+          image: product.image || '/placeholder-product.jpg',
+          // Garante que sizes e colors sejam arrays
+          sizes: Array.isArray(product.sizes) ? product.sizes : [],
+          colors: Array.isArray(product.colors) ? product.colors : []
         };
         
-        console.log(`Produto ${index} processado:`, processedProduct);
         return processedProduct;
       } catch (error) {
-        console.error(`Erro ao processar produto no índice ${index}:`, error, product);
+        console.error(`ERRO ao processar produto no índice ${index}:`, error, product);
         return null;
       }
     }).filter(Boolean); // Remove itens nulos
     
-    console.log('Processamento concluído. Total de produtos processados:', processados.length);
-    console.log('Amostra dos produtos processados:', processados.slice(0, 2));
+    console.log('=== RESUMO DO PROCESSAMENTO ===');
+    console.log('Total de produtos recebidos:', produtos.length);
+    console.log('Total de produtos processados com sucesso:', processados.length);
+    
+    if (processados.length === 0) {
+      console.error('ERRO CRÍTICO: Nenhum produto foi processado com sucesso');
+    } else {
+      console.log('Amostra dos produtos processados (primeiros 3):', 
+        processados.slice(0, 3).map(p => ({
+          id: p.id,
+          name: p.name,
+          price: p.price,
+          hasImage: !!p.image
+        }))
+      );
+    }
     
     return processados;
   } catch (error) {
-    console.error('Erro fatal ao processar produtos:', error);
+    console.error('ERRO FATAL ao processar produtos:', error);
     return [];
   }
 };
@@ -111,18 +145,25 @@ export const ProvedorProdutos = ({ children }) => {
         
         // Força o uso dos dados iniciais por enquanto
         console.log('Usando dados iniciais diretamente...');
-        console.log('Dados iniciais:', produtosIniciais);
+        console.log('Quantidade de produtos iniciais:', produtosIniciais.length);
+        console.log('Primeiros 3 produtos:', produtosIniciais.slice(0, 3).map(p => ({ 
+          id: p.id, 
+          name: p.name, 
+          category: p.category 
+        })));
         
         // Processa os produtos iniciais diretamente
         const initialProcessed = processarProdutos([...produtosIniciais]);
-        console.log('Produtos processados:', initialProcessed);
+        console.log('Produtos processados com sucesso:', initialProcessed.length);
         
         // Define os produtos no estado
         setProdutos(initialProcessed);
+        console.log('Produtos definidos no estado com sucesso');
         
         // Salva no localStorage para uso futuro
         try {
           localStorage.setItem('kalineProducts', JSON.stringify(initialProcessed));
+          console.log('Produtos salvos no localStorage');
         } catch (error) {
           console.error('Erro ao salvar no localStorage:', error);
         }
