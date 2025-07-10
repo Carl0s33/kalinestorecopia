@@ -37,8 +37,9 @@ const HomePage = () => {
   // mas o trabalho pede 3 componentes entao toma
 
   const promocoes = [
-    { id: 1, imagem: '/img/banners/banner1.jpg', link: '#' },
-    { id: 3, imagem: '/img/banners/banner3.jpg', link: '/produtos/1001' }
+    { id: 1, imagem: '/img/banners/banner1.jpg', imagemMobile: '/img/banners/banner1-mobile.jpg', link: '#' },
+    { id: 2, imagem: '/img/banners/banner2.jpg', imagemMobile: '/img/banners/banner2-mobile.jpg', link: '#' },
+    { id: 3, imagem: '/img/banners/banner3.jpg', imagemMobile: '/img/banners/banner3-mobile.jpg', link: '#' }
   ];
 
   // Estados do carrossel
@@ -131,7 +132,7 @@ const HomePage = () => {
   }, [produtosFromContext]); // atualiza quando os produtos carregam (ou não)
   
   useEffect(() => {
-    document.documentElement.classList.remove('protanopia-filter', 'deuteranopia-filter', 'tritanopsia-filter', 'achromatopsia-filter');
+    document.documentElement.classList.remove('protanopia-filter', 'deuteranopia-filter', 'tritanopia-filter', 'achromatopsia-filter');
     if (accessibilityFilter !== 'none') {
       document.documentElement.classList.add(`${accessibilityFilter}-filter`);
     }
@@ -249,16 +250,19 @@ const HomePage = () => {
                   className="block h-full w-full flex-shrink-0"
                 >
                   <div className="h-full w-full">
-                    <img
-                      src={promo.imagem}
-                      alt={`Banner ${promo.id}`}
-                      className="h-full w-full object-cover"
-                      draggable="false"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextElementSibling?.classList.remove('hidden');
-                      }}
-                    />
+                    <picture>
+  <source media="(max-width: 600px)" srcSet={promo.imagemMobile ? promo.imagemMobile : promo.imagem} />
+  <img
+    src={promo.imagem}
+    alt={`Banner ${promo.id}`}
+    className="h-full w-full object-cover"
+    draggable="false"
+    onError={(e) => {
+      e.target.style.display = 'none';
+      e.target.nextElementSibling?.classList.remove('hidden');
+    }}
+  />
+</picture>
                     <div className="hidden h-full w-full items-center justify-center bg-gray-100">
                       <span className="text-gray-400">Imagem não disponível</span>
                     </div>
