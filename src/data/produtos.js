@@ -446,7 +446,7 @@ const produtos = [
     "salePrice": "R$ 69,90",
     "onSale": true,
     "category": "Acessórios",
-    "image": "/img/produtos/camisa dryfit.webp",
+    "image": "/img/produtos/CintoCouro.webp",
     "description": "Cinto de couro legítimo com fivela de metal escovado. Ideal para complementar calças e vestidos.",
     "rating": 4.8,
     "reviews": 180,
