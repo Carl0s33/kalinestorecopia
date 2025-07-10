@@ -446,7 +446,7 @@ const produtos = [
     "salePrice": "R$ 69,90",
     "onSale": true,
     "category": "Acessórios",
-    "image": "/img/produtos/CintoCouro.webp",
+    "image": "/img/produtos/CINTOCOURO.jpg",
     "description": "Cinto de couro legítimo com fivela de metal escovado. Ideal para complementar calças e vestidos.",
     "rating": 4.8,
     "reviews": 180,
@@ -456,6 +456,38 @@ const produtos = [
     "inStock": true,
     "createdAt": "2025-07-07T20:07:22Z",
     "updatedAt": "2025-07-07T20:07:22Z"
+  },
+  {
+    "id": "19",
+    "name": "Tênis Casual Branco",
+    "price": "R$ 179,90",
+    "category": "Sapatos",
+    "image": "/img/produtos/tenis-casual.jpg",
+    "description": "Tênis casual branco, confortável e versátil para o dia a dia.",
+    "rating": 4.7,
+    "reviews": 94,
+    "sizes": ["37", "38", "39", "40", "41", "42"],
+    "colors": ["Branco"],
+    "details": ["Solado emborrachado", "Palmilha macia", "Fechamento em cadarço"],
+    "inStock": true,
+    "createdAt": "2025-07-10T11:04:45Z",
+    "updatedAt": "2025-07-10T11:04:45Z"
+  },
+  {
+    "id": "20",
+    "name": "Sandália Salto Bloco Nude",
+    "price": "R$ 139,90",
+    "category": "Sapatos",
+    "image": "/img/produtos/sandalia-salto-bloco.jpg",
+    "description": "Sandália feminina com salto bloco, tiras finas e acabamento nude.",
+    "rating": 4.9,
+    "reviews": 121,
+    "sizes": ["34", "35", "36", "37", "38", "39"],
+    "colors": ["Nude"],
+    "details": ["Salto 6cm", "Tiras ajustáveis", "Solado antiderrapante"],
+    "inStock": true,
+    "createdAt": "2025-07-10T11:04:45Z",
+    "updatedAt": "2025-07-10T11:04:45Z"
   }
 ];
 
