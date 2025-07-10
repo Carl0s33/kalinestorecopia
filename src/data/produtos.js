@@ -30,33 +30,6 @@ async function urlToBase64(url) {
 // Inicialização dos produtos com URLs
 const produtos = [
   {
-    "id": "c1",
-    "name": "iPhone 13",
-    "tipo": "iphone",
-    "price": "R$ 4.999,00",
-    "category": "Celulares",
-    "image": "/img/celulares/iphone13.png",
-    "imageMobile": "/img/celulares/iphone13-mobile.png",
-    "description": "iPhone 13 com tela Super Retina XDR de 6,1 polegadas.",
-    "rating": 4.9,
-    "reviews": 210,
-    "isOnSale": false
-  },
-  {
-    "id": "c2",
-    "name": "Samsung Galaxy S21",
-    "tipo": "samsung",
-    "price": "R$ 3.499,00",
-    "category": "Celulares",
-    "image": "/img/celulares/galaxy-s21.png",
-    "imageMobile": "/img/celulares/galaxy-s21-mobile.png",
-    "description": "Samsung Galaxy S21 com câmera tripla e tela AMOLED.",
-    "rating": 4.8,
-    "reviews": 180,
-    "isOnSale": true
-  },
-
-  {
     "id": "1001",
     "name": "Vestido Midi Pink com Drapeado",
     "price": "R$ 105,99",
