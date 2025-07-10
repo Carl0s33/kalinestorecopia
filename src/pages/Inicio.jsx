@@ -255,7 +255,7 @@ const HomePage = () => {
   <img
     src={promo.imagem}
     alt={`Banner ${promo.id}`}
-    className="h-full w-full object-contain bg-black"
+    className="h-full w-full object-contain object-left sm:object-center bg-black"
     draggable="false"
     onError={(e) => {
       e.target.style.display = 'none';
