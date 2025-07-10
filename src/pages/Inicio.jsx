@@ -251,18 +251,18 @@ const HomePage = () => {
                 >
                   <div className="h-full w-full">
                     <picture>
-                      <source media="(max-width: 600px)" srcSet={promo.imagemMobile} />
-                      <img
-                        src={promo.imagem}
-                        alt={`Banner ${promo.id}`}
-                        className="h-full w-full object-cover"
-                        draggable="false"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          e.target.nextElementSibling?.classList.remove('hidden');
-                        }}
-                      />
-                    </picture>
+  <source media="(max-width: 600px)" srcSet={promo.imagemMobile ? promo.imagemMobile : promo.imagem} />
+  <img
+    src={promo.imagem}
+    alt={`Banner ${promo.id}`}
+    className="h-full w-full object-cover"
+    draggable="false"
+    onError={(e) => {
+      e.target.style.display = 'none';
+      e.target.nextElementSibling?.classList.remove('hidden');
+    }}
+  />
+</picture>
                     <div className="hidden h-full w-full items-center justify-center bg-gray-100">
                       <span className="text-gray-400">Imagem não disponível</span>
                     </div>
