@@ -586,6 +586,7 @@ const produtos = [
     "inStock": true,
     "createdAt": "2025-07-10T11:46:48Z",
     "updatedAt": "2025-07-10T11:46:48Z"
+    
   }
 ];
 
