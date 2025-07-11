@@ -44,6 +44,7 @@ import { motion } from 'framer-motion';
 
 const navLinks = [
   { to: "/category/novidades", label: "Novidades" },
+  { to: "/category/promocoes", label: "Promoções" },
   { to: "/category/vestidos", label: "Vestidos" },
   { to: "/category/camisetas", label: "Camisetas" },
   { to: "/category/calcas", label: "Calças" },
@@ -331,6 +332,9 @@ const Header = () => {
                   <DropdownMenuContent align="end" className="w-48 bg-brand-card-kaline dark:bg-card mt-2">
                     <DropdownMenuItem asChild className="cursor-pointer hover:bg-brand-secondary-kaline/10 dark:hover:bg-accent/10">
                       <Link to="/login" className="w-full">Login</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild className="cursor-pointer hover:bg-brand-secondary-kaline/10 dark:hover:bg-accent/10">
+                      <Link to="/category/promocoes" className="w-full">Promoções</Link>
                     </DropdownMenuItem>
                     <DropdownMenuSub>
                       <DropdownMenuSubTrigger className="cursor-pointer hover:bg-brand-secondary-kaline/10 dark:hover:bg-accent/10">

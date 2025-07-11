@@ -26,7 +26,7 @@ const CategoryPage = () => {
 
   // quando a categoria mudar, busca os produtos
   // se der erro, ja era
-a
+
   useEffect(() => {
     setIsLoading(true);
     const decodedCategoryName = decodeURIComponent(categoryName);

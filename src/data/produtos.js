@@ -30,7 +30,7 @@ async function urlToBase64(url) {
 // Inicialização dos produtos com URLs
 const produtos = [
   {
-    "id": "1001",
+    "id": "1",
     "name": "Vestido Midi Pink com Drapeado",
     "price": "R$ 105,99",
     "originalPrice": "R$ 199,90",
@@ -42,7 +42,7 @@ const produtos = [
     "isOnSale": true
   },
   {
-    "id": "1002",
+    "id": "2",
     "name": "Relógio Feminino Vintage Dourado",
     "price": "R$ 69,99",
     "originalPrice": "R$ 129,90",
@@ -54,7 +54,7 @@ const produtos = [
     "isOnSale": true
   },
   {
-    "id": "1003",
+    "id": "3",
     "name": "Colar Duplo de Pérolas com Pingente",
     "price": "R$ 84,99",
     "originalPrice": "R$ 149,90",
@@ -66,7 +66,7 @@ const produtos = [
     "isOnSale": true
   },
   {
-    "id": "3",
+    "id": "4",
     "name": "Conjunto Feminino Social Cinza e Preto",
     "price": "R$ 189,90",
     "originalPrice": "R$ 249,90",
@@ -97,7 +97,7 @@ const produtos = [
     "updatedAt": "2025-06-03T14:14:00Z"
   },
   {
-    "id": "4",
+    "id": "5",
     "name": "Tênis Casual Branco Classic",
     "price": "R$ 179,90",
     "category": "Calçados",
@@ -128,7 +128,7 @@ const produtos = [
     "updatedAt": "2025-06-01T11:30:00Z"
   },
   {
-    "id": "2",
+    "id": "6",
     "name": "Calça Jeans Skinny Stretch",
     "price": "R$ 159,90",
     "category": "Calças",
@@ -161,7 +161,7 @@ const produtos = [
     "updatedAt": "2025-05-28T16:40:00Z"
   },
   {
-    "id": "6",
+    "id": "7",
     "name": "Camiseta Básica DryFit",
     "price": "R$ 59,90",
     "category": "Camisetas",
@@ -195,7 +195,7 @@ const produtos = [
     "updatedAt": "2025-05-30T09:20:00Z"
   },
   {
-    "id": "1",
+    "id": "8",
     "name": "Blusa Feminina Manga Bufante",
     "price": "R$ 89,90",
     "category": "Camisetas",
@@ -225,7 +225,7 @@ const produtos = [
   },
  
   {
-    "id": "8",
+    "id": "9",
     "name": "Bolsa Transversal Matelassê Couro",
     "price": "R$ 199,90",
     "category": "Bolsas",
@@ -253,7 +253,7 @@ const produtos = [
     "updatedAt": "2025-05-25T15:20:00Z"
   },
   {
-    "id": "9",
+    "id": "10",
     "name": "Smartwatch Fitness Pro",
     "price": "R$ 1.299,00",
     "category": "Acessórios",
@@ -282,7 +282,7 @@ const produtos = [
     "updatedAt": "2025-05-29T14:15:00Z"
   },
   {
-    "id": "10",
+    "id": "11",
     "name": "Jaqueta Jeans Oversized Vintage",
     "price": "R$ 259,90",
     "category": "Jaquetas",
@@ -311,7 +311,7 @@ const produtos = [
     "updatedAt": "2025-05-27T10:40:00Z"
   },
   {
-    "id": "11",
+    "id": "12",
     "name": "Blusa de Seda com Laço",
     "price": "R$ 189,90",
     "category": "Blusas",
@@ -340,7 +340,7 @@ const produtos = [
     "updatedAt": "2025-07-07T19:54:23Z"
   },
   {
-    "id": "12",
+    "id": "13",
     "name": "Minissaia Jeans com Botões",
     "price": "R$ 99,90",
     "category": "Saias",
@@ -356,7 +356,7 @@ const produtos = [
     "updatedAt": "2025-07-07T20:07:22Z"
   },
   {
-    "id": "13",
+    "id": "14",
     "name": "Saia Midi Plissada Estampada",
     "price": "R$ 229,90",
     "category": "Saias",
@@ -373,7 +373,7 @@ const produtos = [
     "updatedAt": "2025-07-07T20:07:22Z"
   },
   {
-    "id": "14",
+    "id": "15",
     "name": "Vestido Longo Floral com Fenda",
     "price": "R$ 349,90",
     "category": "Vestidos",
@@ -389,7 +389,7 @@ const produtos = [
     "updatedAt": "2025-07-07T20:07:22Z"
   },
   {
-    "id": "15",
+    "id": "16",
     "name": "Vestido Curto de Alcinha em Viscose",
     "price": "R$ 179,90",
     "salePrice": "R$ 149,90",
@@ -408,7 +408,7 @@ const produtos = [
     "updatedAt": "2025-07-07T20:07:22Z"
   },
   {
-    "id": "16",
+    "id": "17",
     "name": "Vestido Chemise de Linho",
     "price": "R$ 289,90",
     "category": "Vestidos",
@@ -424,7 +424,7 @@ const produtos = [
     "updatedAt": "2025-07-07T20:07:22Z"
   },
   {
-    "id": "17",
+    "id": "18",
     "name": "Óculos de Sol Aviador",
     "price": "R$ 320,00",
     "category": "Acessórios",
@@ -440,7 +440,7 @@ const produtos = [
     "updatedAt": "2025-07-07T20:07:22Z"
   },
   {
-    "id": "18",
+    "id": "19",
     "name": "Cinto de Couro com Fivela",
     "price": "R$ 99,90",
     "salePrice": "R$ 69,90",
