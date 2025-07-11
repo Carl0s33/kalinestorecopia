@@ -119,7 +119,7 @@ const Header = () => {
     >
       <div className="w-full flex h-16 items-center justify-between px-2 sm:px-4 gap-2">
 
-        <Link to="/" className="flex-shrink-0 text-2xl sm:text-3xl font-heading font-bold text-brand-primary-kaline" aria-label="Página Inicial da Kaline Store">
+        <Link to="/" className="flex-shrink-0 text-2xl sm:text-3xl font-heading font-bold text-brand-primary-kaline pr-8 mr-4" aria-label="Página Inicial da Kaline Store">
           Kaline Store
         </Link>
 

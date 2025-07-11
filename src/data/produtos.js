@@ -71,7 +71,7 @@ const produtos = [
     "price": "R$ 189,90",
     "originalPrice": "R$ 249,90",
     "category": "Conjuntos",
-    "image": "/img/produtos/jaquetaoverside.webp",
+    "image": "/img/produtos/conjuntocinza.webp",
     "description": "Conjunto sofisticado feminino em tons de cinza e preto, composto por camisa social de manga longa e saia reta. Ideal para o trabalho ou ocasiões especiais.",
     "rating": 4.7,
     "reviews": 98,
@@ -586,7 +586,7 @@ const produtos = [
     "inStock": true,
     "createdAt": "2025-07-10T11:46:48Z",
     "updatedAt": "2025-07-10T11:46:48Z"
-    
+
   }
 ];
 

@@ -32,6 +32,25 @@ const CartaoProduto = ({ product }) => (
 // se funcionar, foi sorte
 // se não funcionar, tenta dar F5
 const HomePage = () => {
+  // Banner institucional Kaline Store
+  const bannerLoja = (
+    <section className="w-full min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-pink-100 via-yellow-50 to-blue-100 relative overflow-hidden">
+      <div className="flex flex-col items-center justify-center h-full w-full p-8">
+        <img
+          src="/img/logo-kaline-placeholder.png"
+          alt="Logo Kaline Store"
+          className="w-64 h-64 object-contain mb-8 drop-shadow-lg animate-fade-in"
+          style={{ maxWidth: '80vw', maxHeight: '40vh' }}
+        />
+        <h1 className="text-5xl md:text-7xl font-extrabold text-pink-500 mb-4 drop-shadow-lg text-center animate-fade-in">
+          Kaline Store
+        </h1>
+        <p className="text-xl md:text-2xl text-gray-700 max-w-2xl text-center font-medium animate-fade-in">
+          Sua loja de moda, estilo e tendências! Descubra novidades, promoções e produtos exclusivos para realçar o seu visual. Bem-vindo(a) à experiência Kaline Store!
+        </p>
+      </div>
+    </section>
+  );
 
   // mais um carrossel inutil que ninguem pediu
   // mas o trabalho pede 3 componentes entao toma
@@ -363,11 +382,16 @@ const HomePage = () => {
   }
 
   return (
-    <div className={`div-espacada ${accessibilityFilter !== 'none' ? `${accessibilityFilter}-filter` : ''}`}>
+    <>
+      <header className="w-full flex flex-col items-center justify-center py-10 bg-transparent">
+        <h1 className="text-5xl md:text-7xl font-extrabold text-purple-600 drop-shadow-lg text-center mb-4">Kaline Store</h1>
+        <p className="text-lg md:text-2xl text-purple-800 dark:text-purple-200 font-medium text-center max-w-2xl">Sua loja de moda, estilo e tendências! Descubra novidades, promoções e produtos exclusivos para realçar o seu visual. Bem-vindo(a) à experiência Kaline Store!</p>
+      </header>
+      <div className={`div-espacada ${accessibilityFilter !== 'none' ? `${accessibilityFilter}-filter` : ''}`}>
 
   
       {/* Carrossel de banners */}
-      <div className="relative mb-8 mt-4 w-full overflow-hidden rounded-2xl shadow-xl bg-gray-900">
+      <div className="relative mb-8 mt-4 w-full overflow-hidden rounded-2xl shadow-xl bg-pink-100">
         {isLoading ? (
           <div className="flex h-64 w-full items-center justify-center bg-gray-100 md:h-96 rounded-2xl">
             <div className="h-12 w-12 animate-spin rounded-full border-4 border-t-brand-primary-kaline"></div>
@@ -631,6 +655,7 @@ const HomePage = () => {
 
 
     </div>
+    </>
   );
 };
 
